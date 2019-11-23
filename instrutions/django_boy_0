@@ -1,0 +1,14 @@
+# Запускаем сайт
+
+cd djangogirls
+source myvenv/bin/activate
+python manage.py runserver
+
+
+
+python manage.py createsuperuser
+
+kabandarlog
+kabandarlog@gmail.ru
+
+http://127.0.0.1:8000/admin/

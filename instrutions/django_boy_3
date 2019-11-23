@@ -1,0 +1,207 @@
+	URL-адреса Django
+
+Давай откроем файл mysite/urls.py в нашем редакторе и посмотрим, как он выглядит:
+
+mysite/urls.py
+
+"""mysite URL Configuration
+
+[...]
+"""
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+
+
+Файл mysite/urls.py должен выглядеть следующим образом:
+
+mysite/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+]
+
+Django теперь будет перенаправлять все запросы 'http://127.0.0.1:8000/' к blog.urls и искать там дальнейшие инструкции.
+
+
+	blog.urls
+
+Создай новый пустой файл blog/urls.py. Отлично! Добавь в него следующие две строки:
+
+blog/urls.py
+
+from django.urls import path
+from . import views
+
+Так мы импортировали функцию path Django и все views (представления) из приложения blog (у нас их пока нет, но через минуту они появятся!)
+
+После этого мы можем добавить наш первый URL-шаблон:
+
+blog/urls.py
+
+urlpatterns = [
+    path('', views.post_list, name='post_list'),
+]
+
+
+http://127.0.0.1:8000/
+
+В твоей командной строке появилось сообщение об ошибке, но не беспокойся — оно, на самом деле, довольно полезно. Ты можешь прочесть, что не существует атрибута с именем 'postlist' — _no attribute 'post_list'. Это название представления, которое Django пытается найти и использовать, но мы же его ещё не создали. В данный момент раздел /admin/ тоже не будет работать. Не беспокойся, мы этим займёмся.
+
+
+Пришло время избавиться от ошибки, на которую мы наткнулись в прошлой главе :)
+
+view, или представление, — это то место, где мы разместим «логику» работы нашего приложения. Оно запросит информацию из модели, которую мы создали ранее, и передаст её в шаблон. Шаблонами мы займёмся в следующей главе. 
+Представления размещаются в файле views.py. Мы добавим свои представления в файл blog/views.py.
+blog/views.py
+
+Хорошо, давай откроем этот файл и посмотрим на его содержимое:
+
+blog/views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+
+ Простейшее представление может выглядеть следующим образом.
+
+blog/views.py
+
+def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+
+
+TemplateDoesNotExist — такого шаблона не существует. Давай исправим ошибку и создадим шаблон в следующей главе!
+
+
+Шаблоны сохраняются в директории blog/templates/blog. 
+
+ser@lenovo:~/djangogirls/blog$ mkdir -pv templates/blog
+mkdir: создан каталог 'templates'
+mkdir: создан каталог 'templates/blog'
+
+Теперь создай файл post_list.html (для начала оставь его пустым) внутри директории blog/templates/blog.
+
+Посмотри как выглядит твой веб-сайт после этого: http://127.0.0.1:8000/
+
+Добавь следующий код в файл шаблона:
+
+blog/templates/blog/post_list.html
+
+<html>
+    <p>Hi there!</p>
+    <p>It works!</p>
+</html>
+
+
+	Настраиваем шаблон
+
+
+    <h1>Заголовок</h1> — главный заголовок страницы;
+    <h2>Подзаголовок</h2> — для заголовков второго уровня;
+    <h3>Заголовок третьего уровня</h3> … и так далее, вплоть до <h6>;
+    <p>A paragraph of text</p>
+    <em>текст</em> подчёркивает твой текст;
+    <strong>текст</strong> — жирный шрифт;
+    <br /> — переход на следующую строку (внутрь br тега нельзя ничего поместить);
+    <a href="https://djangogirls.org">link</a> создаёт ссылку;
+    <ul><li>первый элемент</li><li>второй элемент</li></ul> создаёт список, такой же как этот!
+    <div></div> определяет раздел страницы.
+
+
+blog/templates/blog/post_list.html
+
+<html>
+    <head>
+        <title>Django Girls blog</title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+
+        <div>
+            <p>published: 14.06.2014, 12:14</p>
+            <h2><a href="">My first post</a></h2>
+            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        </div>
+
+        <div>
+            <p>published: 14.06.2014, 12:14</p>
+            <h2><a href="">My second post</a></h2>
+            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
+        </div>
+    </body>
+</html>
+
+
+	И ещё кое-что: публикация!
+
+ser@lenovo:~/djangogirls$ git status
+На ветке master
+Ваша ветка обновлена в соответствии с «origin/master».
+
+Изменения, которые не в индексе для коммита:
+  (используйте «git add <файл>…», чтобы добавить файл в индекс)
+  (используйте «git checkout -- <файл>…», чтобы отменить изменения
+   в рабочем каталоге)
+
+	изменено:      blog/views.py
+	изменено:      instrutions/django_boy_0
+	изменено:      instrutions/django_boy_2
+	изменено:      mysite/urls.py
+
+Неотслеживаемые файлы:
+  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
+
+	blog/templates/
+	blog/urls.py
+	instrutions/django_boy_3
+
+нет изменений добавленных для коммита
+(используйте «git add» и/или «git commit -a»)
+
+
+Убедись, что находишься в директории djangogirls, и попроси git выбрать все изменения в пределах папки:
+
+command-line
+
+$ git add --all .
+
+    Примечание: -all («всё») означает, что git также обратит внимание на удалённые файлы (по умолчанию он отслеживает новые/изменённые файлы). Также помни (из третьей главы), что . означает текущую директорию.
+
+
+Прежде чем мы загрузим файлы, давай проверим, что именно git будет загружать (все файлы, который git готов отправить на сервер, отмечаются шрифтом зелёного цвета):
+
+command-line
+
+$ git status
+
+
+Мы почти у цели, пришло время сохранить изменения в истории. К сохраняемой версии мы добавим небольшое сообщение, в котором кратко опишем изменения. 
+
+command-line
+
+$ git commit -m "Changed the HTML for the site."
+
+    Примечание: убедись, что используешь двойные кавычки вокруг комментария.
+
+
+После того, как мы сделали это, мы загрузим (заpush'им) изменения на GitHub:
+
+command-line
+
+$ git push
+
+
+
+
+

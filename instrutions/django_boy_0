@@ -12,3 +12,57 @@ kabandarlog
 kabandarlog@gmail.ru
 
 http://127.0.0.1:8000/admin/
+
+
+Quick setup — if you’ve done this kind of thing before
+or	https://github.com/kabandarlog/my-first-blog.git
+
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+…or create a new repository on the command line
+
+echo "# my-first-blog" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/kabandarlog/my-first-blog.git
+git push -u origin master
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/kabandarlog/my-first-blog.git
+git push -u origin master
+
+…or import code from another repository
+
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+
+Your API token
+28ac846d36664e18803e4bea2478f35f189bfbf5 
+
+import requests
+username = 'kabandarlog'
+token = '28ac846d36664e18803e4bea2478f35f189bfbf5'
+
+response = requests.get(
+  'https://www.pythonanywhere.com/api/v0/user/{username}/cpu/'.format(
+      username=username
+  ),
+  headers={'Authorization': 'Token {token}'.format(token=token)}
+)
+if response.status_code == 200:
+  print('CPU quota info:')
+  print(response.content)
+else:
+  print('Got unexpected status code {}: {!r}'.format(response.status_code, response.content))
+
+
+
+$ git status
+$ git add --all .
+$ git status
+$ git commit -m "Changed the HTML for the site."
+git push
+
+
+

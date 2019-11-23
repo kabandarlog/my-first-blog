@@ -1,3 +1,235 @@
     Публикация в Интернете!
 
 
+	Создаём Git-репозиторий
+
+Открой консоль и запусти эти команды в папке djangogirls:
+
+command-line
+
+ser@lenovo:~/djangogirls$ git init
+			Initialized empty Git repository in ~/djangogirls/.git/
+ser@lenovo:~/djangogirls$ git config --global user.name "Your Name"
+ser@lenovo:~/djangogirls$ git config --global user.email you@example.com
+ser@lenovo:~/djangogirls$ touch .gitignore
+
+.gitignore
+
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+/static
+.DS_Store
+
+
+ser@lenovo:~/djangogirls$ git status
+На ветке master
+
+Еще нет коммитов
+
+Неотслеживаемые файлы:
+  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
+
+	.gitignore
+	blog/
+	instrutions/
+	manage.py
+	mysite/
+	requirements.txt
+
+ничего не добавлено в коммит, но есть неотслеживаемые файлы (используйте «git add», чтобы отслеживать их)
+
+
+ser@lenovo:~/djangogirls$ git add --all .
+
+ser@lenovo:~/djangogirls$ git status
+На ветке master
+
+Еще нет коммитов
+
+Изменения, которые будут включены в коммит:
+  (используйте «git rm --cached <файл>…», чтобы убрать из индекса)
+
+	новый файл:    .gitignore
+	новый файл:    blog/__init__.py
+	новый файл:    blog/admin.py
+	новый файл:    blog/apps.py
+	новый файл:    blog/migrations/0001_initial.py
+	новый файл:    blog/migrations/__init__.py
+	новый файл:    blog/models.py
+	новый файл:    blog/tests.py
+	новый файл:    blog/views.py
+	новый файл:    instrutions/django_boy_0
+	новый файл:    instrutions/django_boy_1
+	новый файл:    instrutions/django_boy_2
+	новый файл:    manage.py
+	новый файл:    mysite/__init__.py
+	новый файл:    mysite/settings.py
+	новый файл:    mysite/urls.py
+	новый файл:    mysite/wsgi.py
+	новый файл:    requirements.txt
+
+
+$ git remote add origin https://github.com/kabandarlog/my-first-blog.git
+
+$ git push -u origin master
+Username for 'https://github.com': kabandarlog
+Password for 'https://kabandarlog@github.com': 
+Подсчет объектов: 22, готово.
+Delta compression using up to 4 threads.
+Сжатие объектов: 100% (20/20), готово.
+Запись объектов: 100% (22/22), 8.97 KiB | 1.79 MiB/s, готово.
+Total 22 (delta 0), reused 0 (delta 0)
+To https://github.com/kabandarlog/my-first-blog.git
+ * [new branch]      master -> master
+Ветка «master» отслеживает внешнюю ветку «master» из «origin».
+
+
+
+	Создание API токена для PythonAnywhere
+
+	Настройка сайта на PythonAnywhere
+
+Вернись на главную страницу PythonAnywhere, кликнув логотип. Затем запусти Bash-консоль. Нажав на кнопку bash ты запускаешь командную строку, которая находится на серверах PythonAnywhere. Эта командная строка аналогична тому, что есть на твоём собственном компьютере.
+
+Чтобы опубликовать сайт на PythonAnywhere, нужно загрузить на PythonAnywhere твой код с Github и затем настроить PythonAnywhere так, чтобы он распознал твой код и запустил твоё веб-приложение. Существуют способы сделать это «вручную», но для PythonAnywhere есть программа-помощник, которая сделает это для тебя. Давай её установим.
+
+pip3.6 install --user pythonanywhere
+
+Теперь запустим эту вспомогательную утилиту, которую ты только что установил. Она настроит твоё приложение, скачав его код с GitHub. Напечатай следующее в консоли PythonAnywhere (не забудь использовать свой ник на GitHub вместо <your-github-username>, URL в консольной команде должен совпадать с URL, используемый в команде clone):
+
+PythonAnywhere command-line
+
+$ pa_autoconfigure_django.py https://github.com/kabandarlog/my-first-blog.git
+
+< Running API sanity checks >
+   \
+    ~<:>>>>>>>>>
+Cloning into '/home/kabandarlog/kabandarlog.pythonanywhere.com'...
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 22 (delta 0), reused 22 (delta 0), pack-reused 0
+Unpacking objects: 100% (22/22), done.
+Checking connectivity... done.
+
+< Creating virtualenv with Python3.5 >
+   \
+    ~<:>>>>>>>>>
+Running virtualenv with interpreter /usr/bin/python3.5
+Using base prefix '/usr'
+New python executable in /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/python3.5
+Also creating executable in /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/kabandarlog/.virtualenvs/kabandarlog.pythonanywhere.com/bin/get_env_details
+
+  _________________________________________________________________
+/                                                                   \
+| Pip installing -r                                                 |
+| /home/kabandarlog/kabandarlog.pythonanywhere.com/requirements.txt |
+| (this may take a couple of minutes)                               |
+\                                                                   /
+  -----------------------------------------------------------------
+   \
+    ~<:>>>>>>>>>
+Looking in links: /usr/share/pip-wheels
+Collecting Django~=2.2.4
+  Downloading https://files.pythonhosted.org/packages/a0/36/463632a2e9161a7e713488d719a280e8cb0c7e3a66ed32a32e801891caae/Django-2.2.7-py3-none-any.whl (7.5MB)
+     |████████████████████████████████| 7.5MB 41.2MB/s 
+Collecting pytz
+  Downloading https://files.pythonhosted.org/packages/e7/f9/f0b53f88060247251bf481fa6ea62cd0d25bf1b11a87888e53ce5b7c8ad2/pytz-2019.3-py2.py3-none-any.whl (509kB)
+     |████████████████████████████████| 512kB 33.4MB/s 
+Collecting sqlparse
+  Downloading https://files.pythonhosted.org/packages/ef/53/900f7d2a54557c6a37886585a91336520e5539e3ae2423ff1102daf4f3a7/sqlparse-0.3.0-py2.py3-none-any.whl
+Installing collected packages: pytz, sqlparse, Django
+Successfully installed Django-2.2.7 pytz-2019.3 sqlparse-0.3.0
+
+< Creating web app via API >
+   \
+    ~<:>>>>>>>>>
+
+< Adding static files mappings for /static/ and /media/ >
+   \
+    ~<:>>>>>>>>>
+
+< Updating wsgi file at /var/www/kabandarlog_pythonanywhere_com_wsgi.py >
+   \
+    ~<:>>>>>>>>>
+
+< Updating settings.py >
+   \
+    ~<:>>>>>>>>>
+
+< Running collectstatic >
+   \
+    ~<:>>>>>>>>>
+
+119 static files copied to '/home/kabandarlog/kabandarlog.pythonanywhere.com/static'.
+
+< Running migrate database >
+   \
+    ~<:>>>>>>>>>
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying blog.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+< Reloading kabandarlog.pythonanywhere.com via API >
+   \
+    ~<:>>>>>>>>>
+
+  ______________________________________
+/                                        \
+| All done!  Your site is now live at    |
+| https://kabandarlog.pythonanywhere.com |
+\                                        /
+  --------------------------------------
+   \
+    ~<:>>>>>>>>>
+
+
+  ___________________________________________________________________
+/                                                                     \
+| Starting Bash shell with activated virtualenv in project directory. |
+| Press Ctrl+D to exit.                                               |
+\                                                                     /
+  -------------------------------------------------------------------
+   \
+    ~<:>>>>>>>>>
+(kabandarlog.pythonanywhere.com) 12:05 ~/kabandarlog.pythonanywhere.com (master)$ 
+
+
+Главное, на что нужно обратить внимание сейчас, — это то, что твоя база данных на PythonAnywhere никак не связана с базой данных на твоём компьютере. Поэтому там будут разные посты и разные аккаунты администраторов. Как следствие, для базы на PythonAnywhere необходимо создать аккаунт администратора так же, как ты это делала у себя локально с помощью команды createsuperuser. На PythonAnywhere заранее активировано виртуальное окружение, так что всё, что тебе нужно сделать — это запустить в консоли PythonAnhywhere команду:
+
+PythonAnywhere command-line
+
+(kabandarlog.pythonanywhere.com) $ python manage.py createsuperuser
+Имя пользователя (leave blank to use 'kabandarlog'): 
+Адрес электронной почты: kabandarlog@gmail.com
+Password: 
+Password (again): 
+Superuser created successfully.
+
